@@ -1,12 +1,17 @@
 console.log("this is index.js");
 
-function Book(name, author, type) {
-  this.name = name;
-  this.author = author;
-  this.type = type;
+/*----------the Below is a constructor whose work is to make Book type object---------*/
+class Book {
+  constructor(name, author, type) {
+    this.name = name;
+    this.author = author;
+    this.type = type;
+  }
 }
-// Display function is responsible for displayinmg
-// the book on the screen
+/*-----------------------------------------*/
+
+// Display function is responsible for displaying the book on the screen
+//
 function Display() {}
 
 Display.prototype.add = function (book) {
@@ -43,10 +48,18 @@ Display.prototype.show = function (type, displayMessage) {
   }, 2000);
 };
 
-let libraryForm = document.getElementById("libraryForm");
-libraryForm.addEventListener("submit", libraryFormSubmit);
+let libraryForm = document
+  .getElementById("libraryForm")
+  .addEventListener("submit", libraryFormSubmit);
+// libraryForm.addEventListener("submit", libraryFormSubmit);
+
+/*------ The below function will be executed after submitting the library form-----*/
+
 function libraryFormSubmit(e) {
   console.log("You have submitted library form");
+  console.log(e);
+  /*-------------Taking the input of bookname , bookauthor and type from user---------*/
+
   let name = document.getElementById("bookName").value;
   let author = document.getElementById("author").value;
   let type;
@@ -61,7 +74,15 @@ function libraryFormSubmit(e) {
   } else if (cooking.checked) {
     type = cooking.value;
   }
+  console.log(type);
+
+  /*---------------Till now, data is taken from the user-------------*/
+
   let book = new Book(name, author, type);
+  /* Constructor call or object 
+  initiation and here we r also 
+  giving the arguement for Book function*/
+  console.log(Book);
   console.log(book);
   let display = new Display();
   if (display.validate(book)) {
@@ -71,6 +92,5 @@ function libraryFormSubmit(e) {
   } else {
     display.show("danger", "Sorry U cannot add this book");
   }
-
   e.preventDefault();
 }
